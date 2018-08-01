@@ -2,7 +2,7 @@ package project.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.entity.User;
+import project.dto.UserDTO;
 import project.repository.UserRepository;
 import project.service.UserService;
 
@@ -10,10 +10,10 @@ import project.service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
-    public User getUserById(final long id) {
-        return userRepository.findOne(id);
+    public UserDTO getUserById(final long id) {
+        return UserDTO.toDTO(userRepository.findOne(id));
     }
 }

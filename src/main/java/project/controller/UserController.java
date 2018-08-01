@@ -5,11 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.dto.LoginDTO;
 import project.dto.ResponseDTO;
-import project.entity.User;
+import project.dto.UserDTO;
 import project.service.AuthService;
 import project.service.UserService;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -22,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/getById")
-    public User greeting(@RequestParam(value="id") final long id) {
+    public UserDTO greeting(@RequestParam(value="id") final long id) {
         return userService.getUserById(id);
     }
 

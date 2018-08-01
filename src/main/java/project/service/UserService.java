@@ -1,9 +1,9 @@
 package project.service;
 
-import project.entity.User;
+import project.dto.UserDTO;
 
 public interface UserService {
 
-    User getUserById(final long id);
+    UserDTO getUserById(final long id);
 
 }

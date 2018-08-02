@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import project.security.MySavedRequestAwareAuthenticationSuccessHandler;
 import project.security.RestAuthenticationEntryPoint;
-import project.service.implementation.UserDetailServiceImpl;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

@@ -37,15 +37,15 @@ public class AuthServiceImpl implements AuthService {
         if (!Checker.checkParamsOnNull(loginDTO)) {
             return createFailureResponse("Some fields is empty", HttpStatus.BAD_REQUEST);
         }
-        UsernamePasswordAuthenticationToken authenticationToken
+        final UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(loginDTO.getEmail().trim(), loginDTO.getPassword().trim());
 
         try {
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            final Authentication authentication = authenticationManager.authenticate(authenticationToken);
             if (authentication != null) {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (AuthenticationException e) {
+        } catch (final AuthenticationException e) {
             LOGGER.error("Failed to login: " + loginDTO.getEmail(), e);
             throw new BadCredentialsException("Incorrect login or password");
         }

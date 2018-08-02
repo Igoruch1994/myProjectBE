@@ -1,4 +1,4 @@
-package project.service.implementation;
+package project.security;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import project.entity.enums.RoleType;
 import project.repository.UserRepository;
 
 import java.util.HashSet;
@@ -31,9 +32,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new BadCredentialsException(email);
         }
-        //RoleEnum role = user.getRole();
+        final RoleType role = user.getRole();
         final Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("user"));
+        authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         springUser = new User(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
         return springUser;
     }

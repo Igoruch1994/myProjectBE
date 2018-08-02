@@ -10,6 +10,8 @@ import project.dto.UserDTO;
 import project.service.AuthService;
 import project.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -20,9 +22,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getById")
-    public UserDTO greeting(@RequestParam(value="id") final long id) {
+    @RequestMapping("/id")
+    public UserDTO getById(@RequestParam(value="id") final long id) {
         return userService.getUserById(id);
+    }
+
+    @RequestMapping("/all")
+    public List<UserDTO> getAll() {
+        return userService.getAllUsers();
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

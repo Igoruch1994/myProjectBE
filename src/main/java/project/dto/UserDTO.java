@@ -1,5 +1,6 @@
 package project.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import project.entity.User;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ public class UserDTO {
     private long id;
     private String firstName;
     private String lastName;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
     private String phone;
     private String email;

@@ -1,6 +1,7 @@
 package project.entity;
 
 import org.hibernate.validator.constraints.Email;
+import project.entity.enums.RoleType;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -28,6 +29,9 @@ public class User {
     @Size(max = 100)
     @Column(name = "email", length = 100, unique = true)
     private String email;
+    @Column(name = "role")
+    @Enumerated(EnumType.ORDINAL)
+    private RoleType role;
 
     public long getId() {
         return id;
@@ -85,6 +89,14 @@ public class User {
         this.email = email;
     }
 
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setRole(final RoleType role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -96,13 +108,14 @@ public class User {
                 Objects.equals(birthday, user.birthday) &&
                 Objects.equals(phone, user.phone) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+                role == user.role;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, birthday, phone, password, email);
+        return Objects.hash(id, firstName, lastName, birthday, phone, password, email, role);
     }
 
     @Override
@@ -115,6 +128,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

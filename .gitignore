@@ -6,7 +6,7 @@
 .project
 .classpath
 .settings/
-target/
+target/**
 /src/main/webapp/bower_components/
 /src/main/webapp/node_modules/
 /src/main/webapp/dist/

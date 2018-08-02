@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -13,8 +14,14 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    @Column(name="username")
-    private String userName;
+    @Column(name="firstName")
+    private String firstName;
+    @Column(name = "lastName")
+    private String lastName;
+    @Column(name = "birthday")
+    private LocalDate birthday;
+    @Column(name = "phone")
+    private String phone;
     @Column(name="password")
     private String password;
     @Email
@@ -30,12 +37,36 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(final String userName) {
-        this.userName = userName;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(final LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(final String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -60,7 +91,10 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         final User user = (User) o;
         return id == user.id &&
-                Objects.equals(userName, user.userName) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(birthday, user.birthday) &&
+                Objects.equals(phone, user.phone) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email);
     }
@@ -68,14 +102,17 @@ public class User {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, userName, password, email);
+        return Objects.hash(id, firstName, lastName, birthday, phone, password, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';

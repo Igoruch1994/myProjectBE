@@ -2,18 +2,26 @@ package project.dto;
 
 import project.entity.User;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class UserDTO {
     private long id;
-    private String userName;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthday;
+    private String phone;
     private String email;
+
 
     public static UserDTO toDTO(final User user) {
         final UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setBirthday(user.getBirthday());
+        userDTO.setPhone(user.getPhone());
         userDTO.setEmail(user.getEmail());
-        userDTO.setUserName(user.getUserName());
         return userDTO;
     }
 
@@ -21,47 +29,77 @@ public class UserDTO {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(final LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(final String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserDTO userDTO = (UserDTO) o;
+        final UserDTO userDTO = (UserDTO) o;
         return id == userDTO.id &&
-                Objects.equals(userName, userDTO.userName) &&
+                Objects.equals(firstName, userDTO.firstName) &&
+                Objects.equals(lastName, userDTO.lastName) &&
+                Objects.equals(birthday, userDTO.birthday) &&
+                Objects.equals(phone, userDTO.phone) &&
                 Objects.equals(email, userDTO.email);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, userName, email);
+        return Objects.hash(id, firstName, lastName, birthday, phone, email);
     }
 
     @Override
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

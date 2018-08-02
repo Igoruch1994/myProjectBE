@@ -1,45 +1,19 @@
-package project.entity;
-
-import org.hibernate.validator.constraints.Email;
+package project.dto;
 import project.entity.enums.RoleType;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
-@Table(name = "users")
-public class User {
+public class RegistrationDTO {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
-    @Column(name="firstName")
     private String firstName;
-    @Column(name = "lastName")
     private String lastName;
-    @Column(name = "birthday", columnDefinition = "DATE")
-    private LocalDate birthday;
-    @Column(name = "phone")
+    private LocalDate birthday = LocalDate.now();
     private String phone;
-    @Column(name="password")
     private String password;
-    @Email
-    @Size(max = 100)
-    @Column(name = "email", length = 100, unique = true)
+    private String passwordConfirm;
     private String email;
-    @Column(name = "role")
-    @Enumerated(EnumType.ORDINAL)
     private RoleType role;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(final long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -97,36 +71,44 @@ public class User {
         this.role = role;
     }
 
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(final String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final User user = (User) o;
-        return id == user.id &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(birthday, user.birthday) &&
-                Objects.equals(phone, user.phone) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(email, user.email) &&
-                role == user.role;
+        final RegistrationDTO that = (RegistrationDTO) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(birthday, that.birthday) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(passwordConfirm, that.passwordConfirm) &&
+                Objects.equals(email, that.email) &&
+                role == that.role;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, birthday, phone, password, email, role);
+        return Objects.hash(firstName, lastName, birthday, phone, password, passwordConfirm, email, role);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "RegistrationDTO{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthday=" + birthday +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';

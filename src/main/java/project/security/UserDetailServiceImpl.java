@@ -13,6 +13,7 @@ import project.entity.enums.RoleType;
 import project.repository.UserRepository;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -29,7 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         project.entity.User user = userRepository.findUserByEmail(email);
         org.springframework.security.core.userdetails.User springUser;
-        if (user == null) {
+        if (user == null || !Objects.equals(user.getRole(), RoleType.ROLE_ADMIN)) {
             throw new BadCredentialsException(email);
         }
         final RoleType role = user.getRole();

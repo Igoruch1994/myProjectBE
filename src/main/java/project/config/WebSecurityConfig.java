@@ -18,18 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-/*
-    @Autowired
-    private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;*/
 
     @Autowired
     private SimpleUrlAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
     private SimpleUrlAuthenticationFailureHandler authenticationFailureHandler;
-
-   /* @Autowired
-    private UserDetailServiceImpl userDetailService;*/
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {

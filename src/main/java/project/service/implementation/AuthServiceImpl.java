@@ -2,6 +2,7 @@ package project.service.implementation;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,11 @@ import project.dto.ResponseDTO;
 import project.entity.User;
 import project.repository.UserRepository;
 import project.service.AuthService;
+import project.service.EmailService;
 import project.util.Checker;
+import project.util.EmailGenerator;
+
+import java.util.Objects;
 
 import static project.dto.ResponseDTO.createFailureResponse;
 import static project.dto.ResponseDTO.createSuccessResponse;
@@ -37,6 +42,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private OrikaBeanMapper orikaBeanMapper;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Value("${email.forgot.password.template}")
+    private String SUCCESS_PASSWORD_RESET;
 
     @Override
     public ResponseEntity<ResponseDTO> login(final LoginDTO loginDTO) {
@@ -61,6 +72,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Transactional
+    @Override
     public ResponseEntity<ResponseDTO> signUp(final RegistrationDTO registration) {
         LOGGER.info("Sign up request: " + registration.getEmail());
         if (!Checker.checkParamsOnNull(registration)) {
@@ -82,12 +94,36 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    private ResponseEntity<ResponseDTO> checkCredentials(RegistrationDTO dto) {
+    public ResponseEntity<ResponseDTO> sendChangePasswordMail(final String email) {
+        final User user = userRepository.findUserByEmail(email);
+
+       /* if (Objects.isNull(user)) {
+            return  createFailureResponse("User with such email does not exist !");
+        }*/
+
+        /*String randomKey = RandomStringUtils.randomNumeric(20);
+        user.setTemporaryData(randomKey);
+        userRepository.save(user);
+        */
+        final String body = generateMailBodyToForgotPasswordRequest(user);
+
+        emailService.sendHtmlEmail(email,"Change password", body);
+        return createSuccessResponse("Success. Check your mail");
+    }
+
+    private ResponseEntity<ResponseDTO> checkCredentials(final RegistrationDTO dto) {
         if (!dto.getPassword().equals(dto.getPasswordConfirm()))
             return createFailureResponse("Passwords not match", HttpStatus.BAD_REQUEST);
         if (userRepository.findUserByEmail(dto.getEmail()) != null)
             return createFailureResponse("Email already used", HttpStatus.BAD_REQUEST);
         else return createSuccessResponse();
+    }
+
+    private String generateMailBodyToForgotPasswordRequest(final User user) {
+        return EmailGenerator
+                .generateConfirmationMail("testUser", "test",
+                        "key", "rootPath", SUCCESS_PASSWORD_RESET,
+                        "Change Password");
     }
 
 }

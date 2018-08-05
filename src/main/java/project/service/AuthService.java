@@ -11,4 +11,6 @@ public interface AuthService {
 
     ResponseEntity<ResponseDTO> signUp(RegistrationDTO registrationDTO);
 
+    ResponseEntity<ResponseDTO> sendChangePasswordMail(final String email);
+
 }

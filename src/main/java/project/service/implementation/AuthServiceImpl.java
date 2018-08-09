@@ -71,6 +71,16 @@ public class AuthServiceImpl implements AuthService {
         return createSuccessResponse("Login was successful");
     }
 
+    @Override
+    public ResponseEntity<ResponseDTO> logout() {
+        String principal = userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getEmail();
+        LOGGER.info("Request to logout: " + principal);
+        SecurityContextHolder.clearContext();
+        SecurityContextHolder.getContext().setAuthentication(null);
+        LOGGER.info("Logout was successful: " + principal);
+        return createSuccessResponse("Logout was successful", HttpStatus.OK);
+    }
+
     @Transactional
     @Override
     public ResponseEntity<ResponseDTO> signUp(final RegistrationDTO registration) {

@@ -13,4 +13,6 @@ public interface AuthService {
 
     ResponseEntity<ResponseDTO> sendChangePasswordMail(final String email);
 
+    ResponseEntity<ResponseDTO> logout();
+
 }

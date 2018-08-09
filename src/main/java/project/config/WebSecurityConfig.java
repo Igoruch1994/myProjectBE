@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import project.entity.enums.RoleType;
 import project.security.MySavedRequestAwareAuthenticationSuccessHandler;
 import project.security.RestAuthenticationEntryPoint;
 
@@ -35,10 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/user/all/**").authenticated()
                 .antMatchers("/user/sign-up").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/user/getById").authenticated()
-                .antMatchers("/user/all").permitAll()
                 .and()
                 .formLogin()
                 .successHandler(authenticationSuccessHandler)

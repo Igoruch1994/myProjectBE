@@ -22,13 +22,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+/*
     @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
     public List<UserDTO> getById(@PathVariable("id") int id) {
         final List<UserDTO> list = new ArrayList<>();
         list.add(userService.getUserById(id));
         return list;
-    }
+    }*/
 
     @RequestMapping("/all")
     public List<UserDTO> getAll() {
@@ -45,4 +45,8 @@ public class UserController {
         return authService.signUp(registrationDTO);
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ResponseEntity<ResponseDTO> logout() {
+        return authService.logout();
+    }
 }

@@ -10,6 +10,7 @@ import project.dto.UserDTO;
 import project.service.AuthService;
 import project.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,9 +23,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/id")
-    public UserDTO getById(@RequestParam(value="id") final long id) {
-        return userService.getUserById(id);
+    @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
+    public List<UserDTO> getById(@PathVariable("id") int id) {
+        final List<UserDTO> list = new ArrayList<>();
+        list.add(userService.getUserById(id));
+        return list;
     }
 
     @RequestMapping("/all")

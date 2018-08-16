@@ -30,7 +30,7 @@ public class UserController {
         return list;
     }*/
 
-    @RequestMapping("/all")
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<UserDTO> getAll() {
         return userService.getAllUsers();
     }

@@ -22,7 +22,7 @@ public class TestController {
 
     @RequestMapping(value = "test",method = RequestMethod.GET)
     public String testService() {
-        return "Hello from ES2. Jenkins works well";
+        return "Hello from ES2!. Jenkins works well";
     }
 
 }

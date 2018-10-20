@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .ignoringAntMatchers("/user/login")
+                .ignoringAntMatchers("/user/logout")
+                .ignoringAntMatchers("/user/sign-up")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .exceptionHandling()
@@ -44,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/all").authenticated()
                 .antMatchers("/user/sign-up").permitAll()
                 .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/logout").permitAll()
                 .antMatchers("/user/getById").authenticated()
                 .and()
                 .formLogin()

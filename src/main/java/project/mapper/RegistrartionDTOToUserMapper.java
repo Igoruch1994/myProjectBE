@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import project.dto.RegistrationDTO;
 import project.entity.User;
+import project.entity.enums.RoleType;
 
 @Component
 public class RegistrartionDTOToUserMapper extends CustomMapper<RegistrationDTO, User> {
@@ -18,6 +19,7 @@ public class RegistrartionDTOToUserMapper extends CustomMapper<RegistrationDTO, 
     @Override
     public void mapAtoB(final RegistrationDTO a, final User b, final MappingContext context) {
         super.mapAtoB(a, b, context);
+        b.setRole(RoleType.ROLE_USER);
         b.setPassword(passwordEncoder.encode(a.getPassword()));
     }
 

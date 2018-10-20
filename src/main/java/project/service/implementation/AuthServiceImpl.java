@@ -98,7 +98,7 @@ public class AuthServiceImpl implements AuthService {
         } else {
             user = orikaBeanMapper.map(registration, User.class);
             userRepository.save(user);
-            login(new LoginDTO(registration.getEmail(), registration.getPassword()));
+            //login(new LoginDTO(registration.getEmail(), registration.getPassword()));
             LOGGER.info("User was successful created: " + user);
             return createSuccessResponse("User was successfully created", HttpStatus.OK);
         }

@@ -13,7 +13,6 @@ public class RegistrationDTO {
     private String password;
     private String passwordConfirm;
     private String email;
-    private RoleType role;
 
     public String getFirstName() {
         return firstName;
@@ -63,14 +62,6 @@ public class RegistrationDTO {
         this.email = email;
     }
 
-    public RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(final RoleType role) {
-        this.role = role;
-    }
-
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -90,14 +81,13 @@ public class RegistrationDTO {
                 Objects.equals(phone, that.phone) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(passwordConfirm, that.passwordConfirm) &&
-                Objects.equals(email, that.email) &&
-                role == that.role;
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(firstName, lastName, birthday, phone, password, passwordConfirm, email, role);
+        return Objects.hash(firstName, lastName, birthday, phone, password, passwordConfirm, email);
     }
 
     @Override
@@ -110,7 +100,6 @@ public class RegistrationDTO {
                 ", password='" + password + '\'' +
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", email='" + email + '\'' +
-                ", role=" + role +
                 '}';
     }
 }

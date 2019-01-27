@@ -1,5 +1,6 @@
 package project.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 import project.entity.User;
 
@@ -10,6 +11,7 @@ public class UserDTO {
     private long id;
     private String firstName;
     private String lastName;
+    @JsonIgnore
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
     private String phone;
